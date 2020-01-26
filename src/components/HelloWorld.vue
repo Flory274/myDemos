@@ -2,6 +2,7 @@
   <div class="hello">
     <h1>{{ storeClicks }}</h1>
     <h1>{{ msg }}</h1>
+    <h1>{{ clicks }}</h1>
     <slot name="a1"></slot>
     <button @click="increaseClicks">Click it</button>
     <slot name="a2"></slot>
@@ -32,7 +33,8 @@ export default {
   watch: {
     //se uita la ceva si se definesc ca metoda
     //definesc in watchers numele variabilei pe car evreau sa o vad si primesc 2 parametri la callback(newvalue si oldvalue)
-    clicks(newvalue, oldvalue){
+    //clicks(newvalue, oldvalue){ exemplu1
+    storeClicks(newvalue, oldvalue){
       console.log('called', 'new', newvalue, ' - ', 'old', oldvalue); //es-lint no-console
 }
   },
@@ -53,6 +55,8 @@ export default {
       //this.clicks++;
       //without mapAction this.$store.dispatch('updateClickOnClick', this.storeClicks +1)
       this.updateClickOnClick(this.storeClicks +1);
+      //on emit custom events trebuie sa dai si un payload
+      this.$emit('updatedNrInStore', {ceva: 'altceva'});
       //in cazul computed nu se poate apela ca functie (no () braces)
     },
     showRandomText(a){
@@ -73,6 +77,11 @@ export default {
 
 //props, data, computed -> sunt getters (read only si reactiv)
 //data -> poate folosi si ca setter(this.click = ceva)
+
+//custom events -> props in jos catre copii, events in sus catre parinte (nu poti da catre copii)
+//custom events -> trebuie sa treaca catre parinte
+
+//git: ordine: git status, git add .(all), git commit -m (with message), git push
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

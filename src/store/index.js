@@ -23,3 +23,4 @@ export default new Vuex.Store({
   modules: {
   }
 })
+//aici ceri datele api,fac async,promises
